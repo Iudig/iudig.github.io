@@ -1,0 +1,5 @@
+name: "La Map'tinique"
+navbar:
+  left:
+    - text: "1ère cartographie"
+      href: script_backup.html
