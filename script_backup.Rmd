@@ -1,0 +1,58 @@
+---
+title: "script1"
+author: "moi"
+date: "2026-04-01"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Objet
+
+Présenter un premier script et l'intégration d'une image (carte)
+
+# Librairies
+
+```{r Librairies}
+#permet de gérer les gpkg
+library(sf)
+#permet de faire des maps
+library(mapsf)
+library(happign)
+library(terra)
+```
+
+# Cartographie des ménages pauvres à Saint-Joseph
+```{r Carreaux}
+car <- st_read("base.gpkg", "car97", quiet=T)
+carST <- car [car$code == 97224,]
+plot(carST$geom)
+```
+```{r Histogramme}
+carST <- carST [, "men_pauv"]
+library(sf)
+hist(carST$men_pauv)
+```
+```{r Résumé}
+summary(carST$men_pauv)
+```
+
+```{r Tableau}
+quantile <- quantile(carST$men_pauv, na.rm = T)
+carST$men_pauv_rapport <- "moyen"
+carST$men_pauv_rapport [carST$men_pauv < quantile [2]] <- "Moins de ménages pauvres" 
+carST$men_pauv_rapport [carST$men_pauv > quantile [3]] <- "Plus de ménages pauvres" 
+table(carST$men_pauv_rapport)
+```
+```{r Carte}
+rapport <- aggregate(carST  [, c("men_pauv_rapport")], by = list(carST$men_pauv_rapport), length)
+mf_map(rapport, type = "typo", var = "Group.1", border= NA, leg_title = "")
+```
+# Nouveaux tests
+```{r Carreaux_manquants}
+car2 <- st_read("base.gpkg", "carreau_manquant97", quiet=T)
+carST2 <- car2 [car2$code == 97224,]
+plot(carST2$geom)
+```
