@@ -1,0 +1,40 @@
+---
+title: "Script4"
+output: html_document
+---
+
+# Librairies
+
+```{r Librairies}
+#permet de gérer les gpkg
+library(sf)
+#permet de faire des maps
+library(mapsf)
+library(happign)
+library(terra)
+```
+
+```{r Début}
+insee <- st_read("insee.geojson")
+nivdevie <- insee[,c(1:13)]
+nivdevie <- nivdevie[,c(1,2,8,13,14)]
+nivdevie$moy_niv <- nivdevie$ind_snv/nivdevie$pop_carr
+```
+```{r Hist}
+hist(nivdevie$moy_niv)
+```
+
+```{r Summary}
+summary(nivdevie$moy_niv)
+```
+```{r Quantiles}
+quantile <- quantile(nivdevie$moy_niv, na.rm = T)
+nivdevie$moy_niv_rapport <- "moyen"
+nivdevie$moy_niv_rapport [nivdevie$moy_niv < quantile [2]] <- "Niveaux de vie les moins élevés en moyenne" 
+nivdevie$moy_niv_rapport [nivdevie$moy_niv > quantile [3]] <- "Niveaux de vie les plus élevés en moyenne" 
+table(nivdevie$moy_niv_rapport)
+```
+```{r Carte}
+rapport2 <- aggregate(nivdevie  [, c("moy_niv_rapport")], by = list(nivdevie$moy_niv_rapport), length)
+mf_map(rapport2, type = "typo", var = "Group.1", border= NA, leg_title = "")
+```
