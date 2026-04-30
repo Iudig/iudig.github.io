@@ -1,0 +1,65 @@
+---
+title: "Script5"
+output: html_document
+---
+
+```{r Librairies}
+#permet de gérer les gpkg
+library(sf)
+#permet de faire des maps
+library(mapsf)
+library(happign)
+library(terra)
+```
+
+```{r}
+tot <- get_apicarto_cadastre("97224", type = "commune")
+st_write(tot, "projet.gpkg", "commune", delete_layer = T)
+```
+```{r}
+r <- get_wms_raster(tot,
+               layer = "ORTHOIMAGERY.ORTHOPHOTOS",
+               res = 10,
+               crs = 5490,
+               rgb = TRUE,
+               filename = "SaintJoseph.tif",
+               overwrite = FALSE,
+               verbose = TRUE)
+```
+
+
+```{r}
+r <- rast("SaintJoseph.tif")
+plot(r)
+```
+
+```{r}
+car3 <- st_read("contour.geojson")
+car3 <- car3[1,]
+car3 <- st_transform(car3, 5490)
+plot(car3$geometry)
+```
+```{r}
+cr <- crop(r, car3, mask = T)
+plot(cr)
+```
+```{r}
+st_layers("base.gpkg")
+car2 <- st_read("base.gpkg", "car97", quiet=T)
+carST2 <- car2 [car2$code == 97224,]
+plot(carST2$geom)
+```
+
+```{r}
+cr <- crop(r, carST2, mask = T)
+plot(cr)
+```
+
+```{r}
+st_layers("routes.geojson")
+routes <- st_read("routes.geojson")
+routes <- routes[,1]
+plot(routes$geometry)
+```
+
+
