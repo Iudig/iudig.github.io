@@ -250,6 +250,9 @@ $(document).ready(function () {
 <li>
   <a href="script4.html">2e cartographie</a>
 </li>
+<li>
+  <a href="script5.html">3e cartographie</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -303,10 +306,15 @@ library(mapsf)</code></pre>
 <div id="cartographie-des-ménages-pauvres-à-saint-joseph"
 class="section level1">
 <h1>Cartographie des ménages pauvres à Saint-Joseph</h1>
+<div id="préparation-des-carreaux" class="section level2">
+<h2>Préparation des carreaux</h2>
 <pre class="r"><code>car &lt;- st_read(&quot;base.gpkg&quot;, &quot;car97&quot;, quiet=T)
 carST &lt;- car [car$code == 97224,]
 plot(carST$geom)</code></pre>
 <p><img src="script_backup_files/figure-html/Carreaux-1.png" alt="" width="672" /></p>
+</div>
+<div id="préparation-de-la-donnée" class="section level2">
+<h2>Préparation de la donnée</h2>
 <pre class="r"><code>carST &lt;- carST [, &quot;men_pauv&quot;]
 library(sf)
 hist(carST$men_pauv)</code></pre>
@@ -322,6 +330,9 @@ table(carST$men_pauv_rapport)</code></pre>
 <pre><code>## 
 ## Moins de ménages pauvres                    moyen  Plus de ménages pauvres 
 ##                      149                      162                      302</code></pre>
+</div>
+<div id="carte" class="section level2">
+<h2>Carte</h2>
 <pre class="r"><code>rapport &lt;- aggregate(carST  [, c(&quot;men_pauv_rapport&quot;)], by = list(carST$men_pauv_rapport), length)
 mf_map(rapport, type = &quot;typo&quot;, var = &quot;Group.1&quot;, border= NA, leg_title = &quot;&quot;)</code></pre>
 <p><img src="script_backup_files/figure-html/Carte-1.png" alt="" width="672" />
@@ -330,6 +341,7 @@ mf_map(rapport, type = &quot;typo&quot;, var = &quot;Group.1&quot;, border= NA, 
 carST2 &lt;- car2 [car2$code == 97224,]
 plot(carST2$geom)</code></pre>
 <p><img src="script_backup_files/figure-html/Carreaux_manquants-1.png" alt="" width="672" /></p>
+</div>
 </div>
 
 

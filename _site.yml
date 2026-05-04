@@ -5,3 +5,5 @@ navbar:
       href: script_backup.html
     - text: "2e cartographie"
       href: script4.html
+    - text: "3e cartographie"
+      href: script5.html

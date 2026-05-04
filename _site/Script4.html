@@ -248,6 +248,9 @@ $(document).ready(function () {
 <li>
   <a href="script4.html">2e cartographie</a>
 </li>
+<li>
+  <a href="script5.html">3e cartographie</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -308,19 +311,17 @@ nivdevie$moy_niv &lt;- nivdevie$ind_snv/nivdevie$pop_carr</code></pre>
 <pre class="r"><code>summary(nivdevie$moy_niv)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##   11431   18209   20461   21337   23855   38217</code></pre>
-<pre class="r"><code>quantile &lt;- quantile(nivdevie$moy_niv, na.rm = T)
-nivdevie$moy_niv_rapport &lt;- &quot;moyen&quot;
-nivdevie$moy_niv_rapport [nivdevie$moy_niv &lt; quantile [2]] &lt;- &quot;Niveaux de vie les moins élevés en moyenne&quot; 
-nivdevie$moy_niv_rapport [nivdevie$moy_niv &gt; quantile [3]] &lt;- &quot;Niveaux de vie les plus élevés en moyenne&quot; 
-table(nivdevie$moy_niv_rapport)</code></pre>
+<pre class="r"><code>nivdevie$indicateur &lt;- nivdevie$moy_niv-22284
+quantile &lt;- quantile(nivdevie$indicateur, na.rm = T)
+nivdevie$indicateur_rapport [nivdevie$indicateur &lt; 0] &lt;- &quot;Niveaux de vie inférieur au coût de la vie&quot; 
+nivdevie$indicateur_rapport [nivdevie$indicateur &gt; 0] &lt;- &quot;Niveaux de vie supérieur au coût de la vie&quot; 
+table(nivdevie$indicateur_rapport)</code></pre>
 <pre><code>## 
-##                                      moyen 
-##                                        142 
-## Niveaux de vie les moins élevés en moyenne 
-##                                        138 
-##  Niveaux de vie les plus élevés en moyenne 
-##                                        273</code></pre>
-<pre class="r"><code>rapport2 &lt;- aggregate(nivdevie  [, c(&quot;moy_niv_rapport&quot;)], by = list(nivdevie$moy_niv_rapport), length)
+## Niveaux de vie inférieur au coût de la vie 
+##                                        326 
+## Niveaux de vie supérieur au coût de la vie 
+##                                        227</code></pre>
+<pre class="r"><code>rapport2 &lt;- aggregate(nivdevie  [, c(&quot;indicateur_rapport&quot;)], by = list(nivdevie$indicateur_rapport), length)
 mf_map(rapport2, type = &quot;typo&quot;, var = &quot;Group.1&quot;, border= NA, leg_title = &quot;&quot;)</code></pre>
 <p><img src="Script4_files/figure-html/Carte-1.png" alt="" width="672" /></p>
 </div>
