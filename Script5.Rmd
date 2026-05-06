@@ -61,5 +61,30 @@ routes <- st_read("routes.geojson")
 routes <- routes[,1]
 plot(routes$geometry)
 ```
+```{r}
+data <- read.csv2("ofgl-base-communes.csv", dec = ".")
+data <- data[,c(16,28)]
+names(data) <- c("Nom", "Montant")
+data <- order(data$Montant, decreasing = FALSE)
+knitr::kable(data)
+```
+# Ce qu'on aurait aimé faire
+L'idée initiale était de faire une jointure avec les contours des communes récupérés sur overpass-turbo. Nous aurions eu ensuite une carte à l'échelle du département avec toutes les communes colorées en fonction du montant de leurs recettes. Nous aurions ainsi pu avoir une comparaison à l'échelle du territoire. Malheureusement, les contours des communes de Martinique ne sont pas construits de la même manière dans overpass-turbo. Par conséquent, la carte ne peut pas être formée. Nous avons tout de même souhaité conserver le code, comme preuve de notre travail.
+```{r}
+#st_layers("communes_martinique.geojson")
+#Mart <- st_read("communes_martinique.geojson", quiet=T)
+#Mart <- Mart[,22]
+#inter <- merge(data, Mart, by.x = "Nom", by.y = "name")
+```
 
-
+```{r}
+#quantile <- quantile(inter$Montant, na.rm = T)
+#inter$Montant_rapport <- "moyen"
+#inter$Montant_rapport [inter$Montant < quantile [2]] <- "Montant des recettes moins élevé"
+#inter$Montant_rapport [inter$Montant > quantile [3]] <- "Montant des recettes plus élevé" 
+#table(inter$Montant_rapport)
+```
+```{r Carte}
+#rapport3 <- aggregate(inter [, c("Montant_rapport")], by = list(inter$Montant_rapport), length)
+#mf_map(rapport3, type = "typo", var = "Group.1", border= NA, leg_title = "")
+```

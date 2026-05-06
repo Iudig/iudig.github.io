@@ -1,9 +1,11 @@
 name: "La Map'tinique"
 navbar:
   left:
+    - text: "Introduction"
+      href: intro.html
     - text: "1ère cartographie"
       href: script_backup.html
     - text: "2e cartographie"
-      href: script4.html
+      href: Script4.html
     - text: "3e cartographie"
-      href: script5.html
+      href: Script5.html

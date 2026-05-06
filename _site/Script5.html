@@ -243,13 +243,16 @@ $(document).ready(function () {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="intro.html">Introduction</a>
+</li>
+<li>
   <a href="script_backup.html">1ère cartographie</a>
 </li>
 <li>
-  <a href="script4.html">2e cartographie</a>
+  <a href="Script4.html">2e cartographie</a>
 </li>
 <li>
-  <a href="script5.html">3e cartographie</a>
+  <a href="Script5.html">3e cartographie</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -359,6 +362,145 @@ plot(cr)</code></pre>
 <pre class="r"><code>routes &lt;- routes[,1]
 plot(routes$geometry)</code></pre>
 <p><img src="Script5_files/figure-html/unnamed-chunk-8-1.png" alt="" width="672" /></p>
+<pre class="r"><code>data &lt;- read.csv2(&quot;ofgl-base-communes.csv&quot;, dec = &quot;.&quot;)
+data &lt;- data[,c(16,28)]
+names(data) &lt;- c(&quot;Nom&quot;, &quot;Montant&quot;)
+data &lt;- order(data$Montant, decreasing = FALSE)
+knitr::kable(data)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">20</td>
+</tr>
+<tr class="even">
+<td align="right">23</td>
+</tr>
+<tr class="odd">
+<td align="right">24</td>
+</tr>
+<tr class="even">
+<td align="right">27</td>
+</tr>
+<tr class="odd">
+<td align="right">18</td>
+</tr>
+<tr class="even">
+<td align="right">7</td>
+</tr>
+<tr class="odd">
+<td align="right">32</td>
+</tr>
+<tr class="even">
+<td align="right">21</td>
+</tr>
+<tr class="odd">
+<td align="right">22</td>
+</tr>
+<tr class="even">
+<td align="right">16</td>
+</tr>
+<tr class="odd">
+<td align="right">12</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="right">29</td>
+</tr>
+<tr class="even">
+<td align="right">10</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+</tr>
+<tr class="odd">
+<td align="right">15</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="right">28</td>
+</tr>
+<tr class="even">
+<td align="right">5</td>
+</tr>
+<tr class="odd">
+<td align="right">33</td>
+</tr>
+<tr class="even">
+<td align="right">14</td>
+</tr>
+<tr class="odd">
+<td align="right">8</td>
+</tr>
+<tr class="even">
+<td align="right">30</td>
+</tr>
+<tr class="odd">
+<td align="right">13</td>
+</tr>
+<tr class="even">
+<td align="right">19</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="right">9</td>
+</tr>
+<tr class="odd">
+<td align="right">25</td>
+</tr>
+<tr class="even">
+<td align="right">31</td>
+</tr>
+<tr class="odd">
+<td align="right">11</td>
+</tr>
+<tr class="even">
+<td align="right">26</td>
+</tr>
+<tr class="odd">
+<td align="right">17</td>
+</tr>
+<tr class="even">
+<td align="right">34</td>
+</tr>
+</tbody>
+</table>
+<div id="ce-quon-aurait-aimé-faire" class="section level1">
+<h1>Ce qu’on aurait aimé faire</h1>
+<p>L’idée initiale était de faire une jointure avec les contours des
+communes récupérés sur overpass-turbo. Nous aurions eu ensuite une carte
+à l’échelle du département avec toutes les communes colorées en fonction
+du montant de leurs recettes. Nous aurions ainsi pu avoir une
+comparaison à l’échelle du territoire. Malheureusement, les contours des
+communes de Martinique ne sont pas construits de la même manière dans
+overpass-turbo. Par conséquent, la carte ne peut pas être formée. Nous
+avons tout de même souhaité conserver le code, comme preuve de notre
+travail.</p>
+<pre class="r"><code>#st_layers(&quot;communes_martinique.geojson&quot;)
+#Mart &lt;- st_read(&quot;communes_martinique.geojson&quot;, quiet=T)
+#Mart &lt;- Mart[,22]
+#inter &lt;- merge(data, Mart, by.x = &quot;Nom&quot;, by.y = &quot;name&quot;)</code></pre>
+<pre class="r"><code>#quantile &lt;- quantile(inter$Montant, na.rm = T)
+#inter$Montant_rapport &lt;- &quot;moyen&quot;
+#inter$Montant_rapport [inter$Montant &lt; quantile [2]] &lt;- &quot;Montant des recettes moins élevé&quot;
+#inter$Montant_rapport [inter$Montant &gt; quantile [3]] &lt;- &quot;Montant des recettes plus élevé&quot; 
+#table(inter$Montant_rapport)</code></pre>
+<pre class="r"><code>#rapport3 &lt;- aggregate(inter [, c(&quot;Montant_rapport&quot;)], by = list(inter$Montant_rapport), length)
+#mf_map(rapport3, type = &quot;typo&quot;, var = &quot;Group.1&quot;, border= NA, leg_title = &quot;&quot;)</code></pre>
+</div>
 
 
 
