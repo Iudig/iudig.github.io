@@ -3,9 +3,11 @@ navbar:
   left:
     - text: "Introduction"
       href: intro.html
-    - text: "1ère cartographie"
+    - text: "1ère Partie"
       href: script_backup.html
-    - text: "2e cartographie"
+    - text: "2e Partie"
       href: Script4.html
-    - text: "3e cartographie"
+    - text: "3e Partie"
       href: Script5.html
+    - text: "Conclusion"
+      href: Conclusion.html

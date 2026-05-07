@@ -1,10 +1,25 @@
 ---
-title: "intro"
+title: "La Map'tinique"
+author: "Mathilde et JOLIVET Iudig"
 output: html_document
 ---
 
-La Map'tinique
+## Introduction 
+La pauvreté est un indicateur essentiel pour comprendre les inégalités sociales et territoriales au sein d’un territoire. Dans la commune de Saint-Joseph, en Martinique, elle peut être étudiée à partir d’indicateurs classiques utilisés en métropole, comme les ménages pauvres et le niveau de vie. Saint-Joseph est une commune située au centre de la Martinique, marquée par un relief vallonné et boisé, avec une population d’environ 16 000 habitants. La commune présente des contrastes sociaux et territoriaux importants, avec des différences visibles entre certaines zones plus favorisées et d’autres plus vulnérables. Cependant ces indicateurs ne permettent pas toujours de rendre compte de toutes les réalités locales (ici propres aux territoires d’Outre-mer). 
 
-Introduction :
+Nous allons donc chercher à comprendre si les indicateurs utilisés en métropole sont réellement adaptés pour analyser la pauvreté en Martinique, ou s’il est nécessaire de prendre en compte d’autres facteurs comme le coût de la vie, la topographie, l’accessibilité du territoire. 
 
-Présentation des données :
+Notre problématique est donc la suivante : Pour mesurer la pauvreté en Martinique, peut-on utiliser les indicateurs métropolitains, ou doit-on trouver de nouveaux indicateurs ? 
+
+## Plan
+I. Dans un premier temps, nous étudierons la pauvreté à Saint-Joseph à partir d’indicateurs classiques, afin d’observer la répartition des ménages pauvres et les inégalités sociales sur le territoire.
+II. Dans un second temps, nous analyserons le niveau de vie et son lien avec le coût de la vie, afin de montrer que les inégalités ne peuvent pas être étudiées uniquement à partir du revenu.
+III. Enfin, nous verrons en quoi la topographie et l’accessibilité du territoire peuvent également influencer les inégalités sociales et les situations de pauvreté à Saint-Joseph.
+
+## Présentation des données
+
+```{r}
+données <- read.csv2("données.csv")
+knitr::kable(données)
+```
+

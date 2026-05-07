@@ -9,9 +9,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="Mathilde et JOLIVET Iudig" />
 
 
-<title>intro</title>
+<title>La Map’tinique</title>
 
 <script src="site_libs/header-attrs-2.31/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -246,13 +247,16 @@ $(document).ready(function () {
   <a href="intro.html">Introduction</a>
 </li>
 <li>
-  <a href="script_backup.html">1ère cartographie</a>
+  <a href="script_backup.html">1ère Partie</a>
 </li>
 <li>
-  <a href="Script4.html">2e cartographie</a>
+  <a href="Script4.html">2e Partie</a>
 </li>
 <li>
-  <a href="Script5.html">3e cartographie</a>
+  <a href="Script5.html">3e Partie</a>
+</li>
+<li>
+  <a href="Conclusion.html">Conclusion</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -266,14 +270,154 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">intro</h1>
+<h1 class="title toc-ignore">La Map’tinique</h1>
+<h4 class="author">Mathilde et JOLIVET Iudig</h4>
 
 </div>
 
 
-<p>La Map’tinique</p>
-<p>Introduction :</p>
-<p>Présentation des données :</p>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>La pauvreté est un indicateur essentiel pour comprendre les
+inégalités sociales et territoriales au sein d’un territoire. Dans la
+commune de Saint-Joseph, en Martinique, elle peut être étudiée à partir
+d’indicateurs classiques utilisés en métropole, comme les ménages
+pauvres et le niveau de vie. Saint-Joseph est une commune située au
+centre de la Martinique, marquée par un relief vallonné et boisé, avec
+une population d’environ 16 000 habitants. La commune présente des
+contrastes sociaux et territoriaux importants, avec des différences
+visibles entre certaines zones plus favorisées et d’autres plus
+vulnérables. Cependant ces indicateurs ne permettent pas toujours de
+rendre compte de toutes les réalités locales (ici propres aux
+territoires d’Outre-mer).</p>
+<p>Nous allons donc chercher à comprendre si les indicateurs utilisés en
+métropole sont réellement adaptés pour analyser la pauvreté en
+Martinique, ou s’il est nécessaire de prendre en compte d’autres
+facteurs comme le coût de la vie, la topographie, l’accessibilité du
+territoire.</p>
+<p>Notre problématique est donc la suivante : Pour mesurer la pauvreté
+en Martinique, peut-on utiliser les indicateurs métropolitains, ou
+doit-on trouver de nouveaux indicateurs ?</p>
+</div>
+<div id="plan" class="section level2">
+<h2>Plan</h2>
+<p>I. Dans un premier temps, nous étudierons la pauvreté à Saint-Joseph
+à partir d’indicateurs classiques, afin d’observer la répartition des
+ménages pauvres et les inégalités sociales sur le territoire. II. Dans
+un second temps, nous analyserons le niveau de vie et son lien avec le
+coût de la vie, afin de montrer que les inégalités ne peuvent pas être
+étudiées uniquement à partir du revenu. III. Enfin, nous verrons en quoi
+la topographie et l’accessibilité du territoire peuvent également
+influencer les inégalités sociales et les situations de pauvreté à
+Saint-Joseph.</p>
+</div>
+<div id="présentation-des-données" class="section level2">
+<h2>Présentation des données</h2>
+<pre class="r"><code>données &lt;- read.csv2(&quot;données.csv&quot;)
+knitr::kable(données)</code></pre>
+<table>
+<colgroup>
+<col width="13%" />
+<col width="13%" />
+<col width="40%" />
+<col width="4%" />
+<col width="1%" />
+<col width="4%" />
+<col width="9%" />
+<col width="12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Nom</th>
+<th align="left">Échelle</th>
+<th align="left">Description</th>
+<th align="right">Projection</th>
+<th align="right">Date</th>
+<th align="left">Producteur</th>
+<th align="right">Taille…Nombre.d.objets</th>
+<th align="left">Mots.clés</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Carreaux Filosophi</td>
+<td align="left">Communale</td>
+<td align="left">Il s’agit des carreaux occupés de Saint-Joseph,
+accompagnés de différents indicateurs socio-économiques.</td>
+<td align="right">5490</td>
+<td align="right">2019</td>
+<td align="left">INSEE</td>
+<td align="right">613</td>
+<td align="left">Careaux, Saint-Joseph</td>
+</tr>
+<tr class="even">
+<td align="left">Carreaux manquants</td>
+<td align="left">Communale</td>
+<td align="left">Il s’agit des carreaux non-occupés de
+Saint-Joseph.</td>
+<td align="right">5490</td>
+<td align="right">NA</td>
+<td align="left"></td>
+<td align="right">47</td>
+<td align="left">Carreaux manquants, Saint-Joseph</td>
+</tr>
+<tr class="odd">
+<td align="left">Contours de Saint-Joseph</td>
+<td align="left">Communale</td>
+<td align="left">Il s’agit du contours de Saint-Joseph.</td>
+<td align="right">5490</td>
+<td align="right">NA</td>
+<td align="left">OSM</td>
+<td align="right">1</td>
+<td align="left">Contours, Saint-Joseph</td>
+</tr>
+<tr class="even">
+<td align="left">Contours des communes de Martinique</td>
+<td align="left">Départementale</td>
+<td align="left">Il s’agit des contours de toutes les communes de
+Martinique.</td>
+<td align="right">5490</td>
+<td align="right">NA</td>
+<td align="left">OSM</td>
+<td align="right">34</td>
+<td align="left">Contours, Martinique</td>
+</tr>
+<tr class="odd">
+<td align="left">Recettes des communes de Martinique</td>
+<td align="left">Départementale</td>
+<td align="left">Il s’agit des recettes des communes en montant par
+habitant.</td>
+<td align="right">5490</td>
+<td align="right">2024</td>
+<td align="left">OFGL</td>
+<td align="right">34</td>
+<td align="left">Recettes communales, Martinique</td>
+</tr>
+<tr class="even">
+<td align="left">Routes de Saint-Joseph</td>
+<td align="left">Communale</td>
+<td align="left">Il s’agit des différents types de routes de
+Saint-Joseph. Certaines débordent un peu sur d’autres communes.</td>
+<td align="right">5490</td>
+<td align="right">NA</td>
+<td align="left">OSM</td>
+<td align="right">1025</td>
+<td align="left">Routes, Saint-Joseph</td>
+</tr>
+<tr class="odd">
+<td align="left">Image Satellitaire de Saint-Joseph</td>
+<td align="left">Intermédiaire (plusieurs communes)</td>
+<td align="left">Il s’agit d’une photographie satellite de
+Saint-Joseph.</td>
+<td align="right">5490</td>
+<td align="right">NA</td>
+<td align="left">Librairie R</td>
+<td align="right">1</td>
+<td align="left">Image satellitaire</td>
+</tr>
+</tbody>
+</table>
+</div>
 
 
 

@@ -9,11 +9,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="moi" />
 
-<meta name="date" content="2026-04-01" />
 
-<title>script3</title>
+<title>Première Partie</title>
 
 <script src="site_libs/header-attrs-2.31/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -248,13 +246,16 @@ $(document).ready(function () {
   <a href="intro.html">Introduction</a>
 </li>
 <li>
-  <a href="script_backup.html">1ère cartographie</a>
+  <a href="script_backup.html">1ère Partie</a>
 </li>
 <li>
-  <a href="Script4.html">2e cartographie</a>
+  <a href="Script4.html">2e Partie</a>
 </li>
 <li>
-  <a href="Script5.html">3e cartographie</a>
+  <a href="Script5.html">3e Partie</a>
+</li>
+<li>
+  <a href="Conclusion.html">Conclusion</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -268,19 +269,18 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">script3</h1>
-<h4 class="author">moi</h4>
-<h4 class="date">2026-04-01</h4>
+<h1 class="title toc-ignore">Première Partie</h1>
 
 </div>
 
 
-<div id="objet" class="section level1">
-<h1>Objet</h1>
-<p>Présenter un premier script et l’intégration d’une image (carte)</p>
-</div>
-<div id="librairies" class="section level1">
-<h1>Librairies</h1>
+<div
+id="partie-1-mesurer-la-pauvreté-à-saint-joseph-une-approche-statistique-des-inégalités-à-partir-dindicateurs-classiques"
+class="section level1">
+<h1>Partie 1: Mesurer la pauvreté à Saint-Joseph : une approche
+statistique des inégalités à partir d’indicateurs classiques</h1>
+<div id="librairies" class="section level2">
+<h2>Librairies</h2>
 <pre class="r"><code>#permet de gérer les gpkg
 library(sf)</code></pre>
 <pre><code>## Warning: le package &#39;sf&#39; a été compilé avec la version R 4.5.3</code></pre>
@@ -306,25 +306,46 @@ library(mapsf)</code></pre>
 ## 
 ##     relate</code></pre>
 </div>
-<div id="cartographie-des-ménages-pauvres-à-saint-joseph"
-class="section level1">
-<h1>Cartographie des ménages pauvres à Saint-Joseph</h1>
-<div id="préparation-des-carreaux" class="section level2">
-<h2>Préparation des carreaux</h2>
+<div id="découpage-du-territoire" class="section level2">
+<h2>Découpage du territoire</h2>
 <pre class="r"><code>car &lt;- st_read(&quot;base.gpkg&quot;, &quot;car97&quot;, quiet=T)
 carST &lt;- car [car$code == 97224,]
 plot(carST$geom)</code></pre>
 <p><img src="script_backup_files/figure-html/Carreaux-1.png" alt="" width="672" /></p>
+<p>Cette première carte représente le découpage du territoire de
+Saint-Joseph en carreaux. Ce maillage permet d’analyser les données à
+une échelle fine, en distinguant de petites zones à l’intérieur de la
+commune. Ce type de représentation est utile pour observer précisément
+la répartition des phénomènes sociaux, comme la pauvreté. On remarque
+que le territoire est découpé de manière homogène (carreaux de même
+taille), ce qui permet ensuite de comparer les différentes zones entre
+elles.</p>
 </div>
-<div id="préparation-de-la-donnée" class="section level2">
-<h2>Préparation de la donnée</h2>
+<div id="histogramme-des-ménages-pauvres" class="section level2">
+<h2>Histogramme des ménages pauvres</h2>
 <pre class="r"><code>carST &lt;- carST [, &quot;men_pauv&quot;]
-library(sf)
-hist(carST$men_pauv)</code></pre>
+hist(carST$men_pauv, 
+     main = &quot;Ditribution du nombre de ménages pauvres des carreaux de Saint-Joseph&quot;,
+     xlab = &quot;Nombre de ménages pauvres&quot;,
+     ylab = &quot;Nombre de carreaux&quot;)</code></pre>
 <p><img src="script_backup_files/figure-html/Histogramme-1.png" alt="" width="672" /></p>
 <pre class="r"><code>summary(carST$men_pauv)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##   0.000   0.600   1.500   3.032   4.000  82.000</code></pre>
+<p>L’histogramme présente la distribution du nombre de ménages pauvres
+dans les différents carreaux. On observe que la majorité des zones ont
+un faible nombre de ménages pauvres, comme le montrent les barres
+élevées à gauche du graphique. À l’inverse, seules quelques zones
+présentent un nombre beaucoup plus élevé de ménages pauvres, ce qui
+apparaît avec les barres plus faibles à droite. La moyenne (environ 3)
+est supérieure à la médiane (1,5), ce qui s’explique par la présence de
+valeurs élevées dans certaines zones. Le maximum atteint 82, ce qui
+montre qu’il existe des écarts importants. Ainsi, la pauvreté est
+inégalement répartie sur le territoire, avec quelques zones
+particulièrement touchées.</p>
+</div>
+<div id="répartition-des-ménages-pauvres" class="section level2">
+<h2>Répartition des ménages pauvres</h2>
 <pre class="r"><code>quantile &lt;- quantile(carST$men_pauv, na.rm = T)
 carST$men_pauv_rapport &lt;- &quot;moyen&quot;
 carST$men_pauv_rapport [carST$men_pauv &lt; quantile [2]] &lt;- &quot;Moins de ménages pauvres&quot; 
@@ -333,17 +354,46 @@ table(carST$men_pauv_rapport)</code></pre>
 <pre><code>## 
 ## Moins de ménages pauvres                    moyen  Plus de ménages pauvres 
 ##                      149                      162                      302</code></pre>
-</div>
-<div id="carte" class="section level2">
-<h2>Carte</h2>
 <pre class="r"><code>rapport &lt;- aggregate(carST  [, c(&quot;men_pauv_rapport&quot;)], by = list(carST$men_pauv_rapport), length)
 mf_map(rapport, type = &quot;typo&quot;, var = &quot;Group.1&quot;, border= NA, leg_title = &quot;&quot;)</code></pre>
-<p><img src="script_backup_files/figure-html/Carte-1.png" alt="" width="672" />
-# Nouveaux tests</p>
+<p><img src="script_backup_files/figure-html/Carte-1.png" alt="" width="672" /></p>
+<p>Cette carte montre la répartition des ménages pauvres à Saint-Joseph,
+à partir des données de l’INSEE. Les zones ont été classées en trois
+catégories : moins de ménages pauvres, moyen et plus de ménages pauvres.
+On observe que les zones les plus touchées (en rose) sont concentrées
+dans certains espaces, tandis que d’autres zones sont moins concernées
+(en bleu). On remarque également qu’il existe un nombre important de
+carreaux appartenant à la catégorie “plus de ménages pauvres”, ce qui
+montre que certaines zones concentrent davantage la pauvreté. Cependant,
+cette observation peut sembler différente de celle de l’histogramme, qui
+montrait que la majorité des zones avaient peu de ménages pauvres. Cela
+s’explique par le fait que la carte regroupe les données en catégories,
+ce qui met davantage en valeur les zones les plus touchées. Cela met en
+évidence une répartition inégale de la pauvreté au sein de la commune.
+La pauvreté n’est donc pas homogène, mais varie selon les espaces, ce
+qui traduit l’existence d’inégalités sociales locales.</p>
+</div>
+<div id="schéma-de-géotraitement" class="section level2">
+<h2>Schéma de géotraitement</h2>
+<pre class="r"><code>#schéma_ménages.png</code></pre>
+</div>
+<div id="zones-manquantes-et-limites-des-données"
+class="section level2">
+<h2>Zones manquantes et limites des données</h2>
 <pre class="r"><code>car2 &lt;- st_read(&quot;base.gpkg&quot;, &quot;carreau_manquant97&quot;, quiet=T)
 carST2 &lt;- car2 [car2$code == 97224,]
 plot(carST2$geom)</code></pre>
 <p><img src="script_backup_files/figure-html/Carreaux_manquants-1.png" alt="" width="672" /></p>
+<p>Cette dernière carte met en évidence certaines zones pour lesquelles
+les données sont absentes ou incomplètes. Ces absences de données
+peuvent s’expliquer par le fait que certains carreaux correspondent à
+des zones peu ou pas habitées, ce qui signifie qu’il n’y a pas de
+population à analyser. Cela montre une limite de l’analyse : toutes les
+zones du territoire ne sont pas renseignées, ce qui peut biaiser
+légèrement les résultats. Certaines parties de la commune sont donc
+moins bien représentées. Il est donc important de prendre en compte ces
+limites lorsqu’on interprète les résultats, même si les grandes
+tendances restent visibles.</p>
 </div>
 </div>
 

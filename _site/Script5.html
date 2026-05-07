@@ -11,7 +11,7 @@
 
 
 
-<title>Script5</title>
+<title>Partie 3</title>
 
 <script src="site_libs/header-attrs-2.31/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -246,13 +246,16 @@ $(document).ready(function () {
   <a href="intro.html">Introduction</a>
 </li>
 <li>
-  <a href="script_backup.html">1ère cartographie</a>
+  <a href="script_backup.html">1ère Partie</a>
 </li>
 <li>
-  <a href="Script4.html">2e cartographie</a>
+  <a href="Script4.html">2e Partie</a>
 </li>
 <li>
-  <a href="Script5.html">3e cartographie</a>
+  <a href="Script5.html">3e Partie</a>
+</li>
+<li>
+  <a href="Conclusion.html">Conclusion</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -266,11 +269,18 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Script5</h1>
+<h1 class="title toc-ignore">Partie 3</h1>
 
 </div>
 
 
+<div
+id="partie-3-topographie-et-accessibilité-des-contraintes-pour-le-territoire"
+class="section level1">
+<h1>Partie 3 : Topographie et accessibilité, des contraintes pour le
+territoire</h1>
+<div id="librairies" class="section level2">
+<h2>Librairies</h2>
 <pre class="r"><code>#permet de gérer les gpkg
 library(sf)</code></pre>
 <pre><code>## Warning: le package &#39;sf&#39; a été compilé avec la version R 4.5.3</code></pre>
@@ -295,6 +305,9 @@ library(mapsf)</code></pre>
 <pre><code>## L&#39;objet suivant est masqué depuis &#39;package:happign&#39;:
 ## 
 ##     relate</code></pre>
+</div>
+<div id="image-satellitaire-de-saint-joseph" class="section level2">
+<h2>Image satellitaire de Saint-Joseph</h2>
 <pre class="r"><code>tot &lt;- get_apicarto_cadastre(&quot;97224&quot;, type = &quot;commune&quot;)
 st_write(tot, &quot;projet.gpkg&quot;, &quot;commune&quot;, delete_layer = T)</code></pre>
 <pre><code>## Deleting layer `commune&#39; using driver `GPKG&#39;
@@ -328,6 +341,24 @@ plot(car3$geometry)</code></pre>
 <pre class="r"><code>cr &lt;- crop(r, car3, mask = T)
 plot(cr)</code></pre>
 <p><img src="Script5_files/figure-html/unnamed-chunk-5-1.png" alt="" width="672" /></p>
+<p>Cette carte est une image satellitaire de la commune de Saint-Joseph.
+On remarque que certaines zones ne sont pas occupées ou très peu
+urbanisées. Cela peut s’expliquer par les contraintes liées au relief,
+notamment dans les zones les plus escarpées. Les espaces habités
+semblent donc se concentrer dans les zones plus accessibles. Le relief
+joue ainsi un rôle dans la répartition de la population à l’intérieur de
+la commune. Ces contraintes peuvent également avoir un impact sur les
+inégalités sociales : les zones plus isolées disposent parfois de moins
+d’équipements, de services ou d’opportunités économiques, ce qui peut
+renforcer certaines situations de pauvreté</p>
+</div>
+<div id="schéma-de-géotraitement" class="section level2">
+<h2>Schéma de géotraitement</h2>
+<pre class="r"><code>#schéma_satellite.png</code></pre>
+</div>
+<div id="image-satellitaire-des-carreaux-occupés-de-saint-joseph"
+class="section level2">
+<h2>Image satellitaire des carreaux occupés de Saint-Joseph</h2>
 <pre class="r"><code>st_layers(&quot;base.gpkg&quot;)</code></pre>
 <pre><code>## Driver: GPKG 
 ## Available layers:
@@ -341,10 +372,21 @@ plot(cr)</code></pre>
 <pre class="r"><code>car2 &lt;- st_read(&quot;base.gpkg&quot;, &quot;car97&quot;, quiet=T)
 carST2 &lt;- car2 [car2$code == 97224,]
 plot(carST2$geom)</code></pre>
-<p><img src="Script5_files/figure-html/unnamed-chunk-6-1.png" alt="" width="672" /></p>
+<p><img src="Script5_files/figure-html/unnamed-chunk-7-1.png" alt="" width="672" /></p>
 <pre class="r"><code>cr &lt;- crop(r, carST2, mask = T)
 plot(cr)</code></pre>
-<p><img src="Script5_files/figure-html/unnamed-chunk-7-1.png" alt="" width="672" /></p>
+<p><img src="Script5_files/figure-html/unnamed-chunk-8-1.png" alt="" width="672" /></p>
+<p>Cette image satellitaire se concentre sur les carreaux habités de
+Saint-Joseph. Malgré le fait que Saint-Joseph soit la 6e commune la plus
+peuplée de Martinique, on observe un territoire très marqué par le
+relief et la végétation, avec de nombreuses zones surélevées et boisées.
+Cela montre que le territoire est difficile à aménager de manière
+homogène. Certaines zones apparaissent plus isolées ou moins
+accessibles, ce qui peut influencer l’installation des habitants et
+l’organisation des activités.</p>
+</div>
+<div id="réseau-routier-de-saint-joseph" class="section level2">
+<h2>Réseau routier de Saint-Joseph</h2>
 <pre class="r"><code>st_layers(&quot;routes.geojson&quot;)</code></pre>
 <pre><code>## Driver: GeoJSON 
 ## Available layers:
@@ -361,7 +403,23 @@ plot(cr)</code></pre>
 ## Geodetic CRS:  WGS 84</code></pre>
 <pre class="r"><code>routes &lt;- routes[,1]
 plot(routes$geometry)</code></pre>
-<p><img src="Script5_files/figure-html/unnamed-chunk-8-1.png" alt="" width="672" /></p>
+<p><img src="Script5_files/figure-html/unnamed-chunk-9-1.png" alt="" width="672" /></p>
+<p>Cette carte représente le réseau routier de Saint-Joseph. On observe
+que les routes sont surtout concentrées dans certaines parties du
+territoire, tandis que d’autres espaces restent moins desservis.Cette
+organisation montre que l’accessibilité varie selon les zones. Les
+espaces les mieux reliés bénéficient généralement d’un accès plus simple
+aux services et aux activités, alors que les zones plus isolées peuvent
+être davantage contraintes dans leurs déplacements. Ces différences
+d’accessibilité peuvent avoir un impact sur les inégalités sociales et
+économiques. Les habitants des zones les moins desservies peuvent
+rencontrer plus de difficultés pour accéder à l’emploi ou aux services
+du quotidien, ce qui peut renforcer certaines situations de
+pauvreté.</p>
+</div>
+<div id="les-recettes-des-communes-de-martinique"
+class="section level2">
+<h2>Les recettes des communes de Martinique</h2>
 <pre class="r"><code>data &lt;- read.csv2(&quot;ofgl-base-communes.csv&quot;, dec = &quot;.&quot;)
 data &lt;- data[,c(16,28)]
 names(data) &lt;- c(&quot;Nom&quot;, &quot;Montant&quot;)
@@ -478,8 +536,21 @@ knitr::kable(data)</code></pre>
 </tr>
 </tbody>
 </table>
-<div id="ce-quon-aurait-aimé-faire" class="section level1">
-<h1>Ce qu’on aurait aimé faire</h1>
+<p>Ce tableau classe les communes de Martinique selon le montant des
+recettes par habitant, de la plus faible à la plus élevée. Chaque
+commune est représentée par un numéro correspondant à son code INSEE
+simplifié.Pour Saint-Joseph, le code INSEE est 97224 : le numéro 24
+apparaît donc dans le tableau. Comme ce numéro se situe parmi les
+premières positions du classement, cela signifie que Saint-Joseph fait
+partie des communes ayant les recettes par habitant les plus faibles de
+Martinique.Ce résultat peut traduire des ressources financières plus
+limitées pour la commune, ce qui peut avoir un impact sur les
+équipements, les services ou les aménagements disponibles pour les
+habitants. Cela permet donc de compléter l’analyse des inégalités
+territoriales et sociales observées dans les autres cartes.</p>
+</div>
+<div id="ce-que-nous-aurions-aimé-faire" class="section level2">
+<h2>Ce que nous aurions aimé faire</h2>
 <p>L’idée initiale était de faire une jointure avec les contours des
 communes récupérés sur overpass-turbo. Nous aurions eu ensuite une carte
 à l’échelle du département avec toutes les communes colorées en fonction
@@ -500,6 +571,11 @@ travail.</p>
 #table(inter$Montant_rapport)</code></pre>
 <pre class="r"><code>#rapport3 &lt;- aggregate(inter [, c(&quot;Montant_rapport&quot;)], by = list(inter$Montant_rapport), length)
 #mf_map(rapport3, type = &quot;typo&quot;, var = &quot;Group.1&quot;, border= NA, leg_title = &quot;&quot;)</code></pre>
+</div>
+<div id="schéma-de-géotraitement-1" class="section level2">
+<h2>Schéma de géotraitement</h2>
+<pre class="r"><code>#schéma_recettes.png</code></pre>
+</div>
 </div>
 
 

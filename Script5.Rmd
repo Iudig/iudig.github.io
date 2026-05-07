@@ -1,7 +1,11 @@
 ---
-title: "Script5"
+title: "Partie 3"
 output: html_document
 ---
+
+# Partie 3 : Topographie et accessibilité, des contraintes pour le territoire
+
+## Librairies
 
 ```{r Librairies}
 #permet de gérer les gpkg
@@ -11,6 +15,8 @@ library(mapsf)
 library(happign)
 library(terra)
 ```
+
+## Image satellitaire de Saint-Joseph
 
 ```{r}
 tot <- get_apicarto_cadastre("97224", type = "commune")
@@ -43,6 +49,18 @@ plot(car3$geometry)
 cr <- crop(r, car3, mask = T)
 plot(cr)
 ```
+
+Cette carte est une image satellitaire de la commune de Saint-Joseph. On remarque que certaines zones ne sont pas occupées ou très peu urbanisées. Cela peut s’expliquer par les contraintes liées au relief, notamment dans les zones les plus escarpées. Les espaces habités semblent donc se concentrer dans les zones plus accessibles. Le relief joue ainsi un rôle dans la répartition de la population à l’intérieur de la commune.
+Ces contraintes peuvent également avoir un impact sur les inégalités sociales : les zones plus isolées disposent parfois de moins d’équipements, de services ou d’opportunités économiques, ce qui peut renforcer certaines situations de pauvreté
+
+## Schéma de géotraitement
+
+```{r}
+#schéma_satellite.png
+```
+
+## Image satellitaire des carreaux occupés de Saint-Joseph
+
 ```{r}
 st_layers("base.gpkg")
 car2 <- st_read("base.gpkg", "car97", quiet=T)
@@ -55,12 +73,22 @@ cr <- crop(r, carST2, mask = T)
 plot(cr)
 ```
 
+Cette image satellitaire se concentre sur les carreaux habités de Saint-Joseph. Malgré le fait que Saint-Joseph soit la 6e commune la plus peuplée de Martinique, on observe un territoire très marqué par le relief et la végétation, avec de nombreuses zones surélevées et boisées. Cela montre que le territoire est difficile à aménager de manière homogène. Certaines zones apparaissent plus isolées ou moins accessibles, ce qui peut influencer l’installation des habitants et l'organisation des activités.
+
+## Réseau routier de Saint-Joseph
+
 ```{r}
 st_layers("routes.geojson")
 routes <- st_read("routes.geojson")
 routes <- routes[,1]
 plot(routes$geometry)
 ```
+
+Cette carte représente le réseau routier de Saint-Joseph. On observe que les routes sont surtout concentrées dans certaines parties du territoire, tandis que d’autres espaces restent moins desservis.Cette organisation montre que l’accessibilité varie selon les zones. Les espaces les mieux reliés bénéficient généralement d’un accès plus simple aux services et aux activités, alors que les zones plus isolées peuvent être davantage contraintes dans leurs déplacements.
+Ces différences d’accessibilité peuvent avoir un impact sur les inégalités sociales et économiques. Les habitants des zones les moins desservies peuvent rencontrer plus de difficultés pour accéder à l’emploi ou aux services du quotidien, ce qui peut renforcer certaines situations de pauvreté.
+
+## Les recettes des communes de Martinique
+
 ```{r}
 data <- read.csv2("ofgl-base-communes.csv", dec = ".")
 data <- data[,c(16,28)]
@@ -68,8 +96,14 @@ names(data) <- c("Nom", "Montant")
 data <- order(data$Montant, decreasing = FALSE)
 knitr::kable(data)
 ```
-# Ce qu'on aurait aimé faire
+
+Ce tableau classe les communes de Martinique selon le montant des recettes par habitant, de la plus faible à la plus élevée. Chaque commune est représentée par un numéro correspondant à son code INSEE simplifié.Pour Saint-Joseph, le code INSEE est 97224 : le numéro 24 apparaît donc dans le tableau. Comme ce numéro se situe parmi les premières positions du classement, cela signifie que Saint-Joseph fait partie des communes ayant les recettes par habitant les plus faibles de Martinique.Ce résultat peut traduire des ressources financières plus limitées pour la commune, ce qui peut avoir un impact sur les équipements, les services ou les aménagements disponibles pour les habitants. Cela permet donc de compléter l’analyse des inégalités territoriales et sociales observées dans les autres cartes.
+
+
+## Ce que nous aurions aimé faire
+
 L'idée initiale était de faire une jointure avec les contours des communes récupérés sur overpass-turbo. Nous aurions eu ensuite une carte à l'échelle du département avec toutes les communes colorées en fonction du montant de leurs recettes. Nous aurions ainsi pu avoir une comparaison à l'échelle du territoire. Malheureusement, les contours des communes de Martinique ne sont pas construits de la même manière dans overpass-turbo. Par conséquent, la carte ne peut pas être formée. Nous avons tout de même souhaité conserver le code, comme preuve de notre travail.
+
 ```{r}
 #st_layers("communes_martinique.geojson")
 #Mart <- st_read("communes_martinique.geojson", quiet=T)
@@ -84,7 +118,14 @@ L'idée initiale était de faire une jointure avec les contours des communes ré
 #inter$Montant_rapport [inter$Montant > quantile [3]] <- "Montant des recettes plus élevé" 
 #table(inter$Montant_rapport)
 ```
+
 ```{r Carte}
 #rapport3 <- aggregate(inter [, c("Montant_rapport")], by = list(inter$Montant_rapport), length)
 #mf_map(rapport3, type = "typo", var = "Group.1", border= NA, leg_title = "")
+```
+
+## Schéma de géotraitement
+
+```{r}
+#schéma_recettes.png
 ```

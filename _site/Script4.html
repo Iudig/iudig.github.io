@@ -11,7 +11,7 @@
 
 
 
-<title>Script4</title>
+<title>Partie 2</title>
 
 <script src="site_libs/header-attrs-2.31/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -246,13 +246,16 @@ $(document).ready(function () {
   <a href="intro.html">Introduction</a>
 </li>
 <li>
-  <a href="script_backup.html">1ère cartographie</a>
+  <a href="script_backup.html">1ère Partie</a>
 </li>
 <li>
-  <a href="Script4.html">2e cartographie</a>
+  <a href="Script4.html">2e Partie</a>
 </li>
 <li>
-  <a href="Script5.html">3e cartographie</a>
+  <a href="Script5.html">3e Partie</a>
+</li>
+<li>
+  <a href="Conclusion.html">Conclusion</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -266,13 +269,18 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Script4</h1>
+<h1 class="title toc-ignore">Partie 2</h1>
 
 </div>
 
 
-<div id="librairies" class="section level1">
-<h1>Librairies</h1>
+<div
+id="partie-2-analyser-le-niveau-de-vie-une-lecture-complémentaire-des-inégalités"
+class="section level1">
+<h1>Partie 2 : Analyser le niveau de vie : une lecture complémentaire
+des inégalités</h1>
+<div id="librairies" class="section level2">
+<h2>Librairies</h2>
 <pre class="r"><code>#permet de gérer les gpkg
 library(sf)</code></pre>
 <pre><code>## Warning: le package &#39;sf&#39; a été compilé avec la version R 4.5.3</code></pre>
@@ -297,6 +305,10 @@ library(mapsf)</code></pre>
 <pre><code>## L&#39;objet suivant est masqué depuis &#39;package:happign&#39;:
 ## 
 ##     relate</code></pre>
+</div>
+<div id="histogramme-du-niveau-de-vie-moyen-à-st-joseph"
+class="section level2">
+<h2>Histogramme du niveau de vie moyen à St Joseph</h2>
 <pre class="r"><code>insee &lt;- st_read(&quot;insee.geojson&quot;)</code></pre>
 <pre><code>## Reading layer `insee&#39; from data source 
 ##   `C:\Users\I J\Documents\Iudig\Licence\L3S6\SIG\iudig.github.io\insee.geojson&#39; 
@@ -309,11 +321,34 @@ library(mapsf)</code></pre>
 <pre class="r"><code>nivdevie &lt;- insee[,c(1:13)]
 nivdevie &lt;- nivdevie[,c(1,2,8,13,14)]
 nivdevie$moy_niv &lt;- nivdevie$ind_snv/nivdevie$pop_carr</code></pre>
-<pre class="r"><code>hist(nivdevie$moy_niv)</code></pre>
+<pre class="r"><code>hist(nivdevie$moy_niv, 
+     main = &quot;Ditribution du niveau de vie moyen des carreaux de Saint-Joseph&quot;,
+     xlab = &quot;Niveau de vie moyen en €&quot;,
+     ylab = &quot;Nombre de carreaux&quot;)</code></pre>
 <p><img src="Script4_files/figure-html/Hist-1.png" alt="" width="672" /></p>
 <pre class="r"><code>summary(nivdevie$moy_niv)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##   11431   18209   20461   21337   23855   38217</code></pre>
+<p>L’histogramme permet d’observer la répartition du niveau de vie moyen
+dans les différents carreaux de Saint-Joseph. Sur l’axe horizontal, on
+lit le niveau de vie moyen, qui va d’environ 11 000 à 38 000. Sur l’axe
+vertical, on lit le nombre de carreaux concernés. On remarque que les
+barres les plus hautes se situent surtout entre 18 000 et 24 000. Cela
+signifie que la majorité des carreaux ont un niveau de vie moyen situé
+dans cette tranche. À l’inverse, il y a peu de carreaux avec un niveau
+de vie très faible, autour de 11 000 à 15 000, ou très élevé, au-dessus
+de 30 000. Les statistiques confirment cette lecture : la médiane est
+d’environ 20 461 et la moyenne d’environ 21 337. Ces deux valeurs sont
+proches, ce qui montre que l’histogramme présente une distribution
+relativement symétrique. Cependant, le maximum atteint environ 38 217,
+ce qui montre qu’il existe quand même quelques zones avec un niveau de
+vie nettement plus élevé. Ainsi, contrairement à l’histogramme des
+ménages pauvres, les écarts semblent ici moins concentrés : la majorité
+des zones se situe autour d’un niveau de vie moyen, même si certaines
+différences territoriales restent visibles.</p>
+</div>
+<div id="répartition-du-niveau-de-vie" class="section level2">
+<h2>Répartition du niveau de vie</h2>
 <pre class="r"><code>nivdevie$indicateur &lt;- nivdevie$moy_niv-22284
 quantile &lt;- quantile(nivdevie$indicateur, na.rm = T)
 nivdevie$indicateur_rapport [nivdevie$indicateur &lt; 0] &lt;- &quot;Niveaux de vie inférieur au coût de la vie&quot; 
@@ -327,6 +362,28 @@ table(nivdevie$indicateur_rapport)</code></pre>
 <pre class="r"><code>rapport2 &lt;- aggregate(nivdevie  [, c(&quot;indicateur_rapport&quot;)], by = list(nivdevie$indicateur_rapport), length)
 mf_map(rapport2, type = &quot;typo&quot;, var = &quot;Group.1&quot;, border= NA, leg_title = &quot;&quot;)</code></pre>
 <p><img src="Script4_files/figure-html/Carte-1.png" alt="" width="672" /></p>
+<p>Cette carte compare le niveau de vie des habitants au coût de la vie
+en Martinique.Le coût de la vie a été estimé à 22 284 euros par an pour
+une personne. Les zones en rose correspondent aux espaces où le niveau
+de vie est supérieur au coût de la vie, tandis que les zones en vert
+représentent les espaces où le niveau de vie est inférieur au coût de la
+vie. On observe que les deux catégories sont réparties sur l’ensemble du
+territoire, mais avec une organisation spatiale assez marquée. Les zones
+où le niveau de vie est inférieur au coût de la vie (en vert) sont
+davantage présentes au nord et dans certaines périphéries de la commune.
+À l’inverse, les zones où le niveau de vie est supérieur au coût de la
+vie (en rose) se concentrent davantage au sud et dans des espaces plus
+centraux.Cette carte met donc en évidence une forme de fragmentation du
+territoire : certaines zones disposent de conditions de vie plus
+favorables, tandis que d’autres apparaissent plus vulnérables face au
+coût de la vie. Cela montre que la pauvreté en Martinique ne peut pas
+être analysée uniquement à partir du revenu, mais doit aussi prendre en
+compte les contraintes territoriales et le coût réel de la vie.</p>
+</div>
+<div id="schéma-de-géotraitement" class="section level2">
+<h2>Schéma de géotraitement</h2>
+<pre class="r"><code>#schéma_indicateur.png</code></pre>
+</div>
 </div>
 
 

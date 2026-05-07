@@ -1,0 +1,12 @@
+---
+title: "Conclusion"
+output: html_document
+---
+
+## Conclusion
+
+Pour conclure, cette étude réalisée sur R studio montre que les indicateurs classiques utilisés en métropole, comme le niveau de vie, permettent d’obtenir une première lecture des inégalités à Saint-Joseph. Ils mettent en évidence une répartition inégale de la pauvreté et des différences importantes entre les espaces de la commune.
+
+Cependant, ces indicateurs restent insuffisants pour comprendre l'entièreté des réalités sociales de la Martinique (et plus largement des territoires d’Outre-mer). Le coût de la vie (différent de la métropole), la topographie, l’accessibilité du territoire influencent les conditions de vie des habitants et peuvent renforcer certaines situations de pauvreté. 
+
+Ainsi, les indicateurs métropolitains peuvent être utilisés pour analyser la pauvreté en Martinique, mais ils doivent être complétés par d’autres éléments plus adaptés aux spécificités locales afin de mieux rendre compte des inégalités territoriales et sociales.  
