@@ -1,19 +1,22 @@
 ---
 title: "Partie 2"
-output: html_document
+output: 
+  html_document:
+    code_folding: hide
 ---
 
 # Partie 2 : Analyser le niveau de vie : une lecture complémentaire des inégalités 
 
 ## Librairies
 
-```{r Librairies}
+```{r Librairies, message=FALSE, warning=FALSE}
 #permet de gérer les gpkg
 library(sf)
 #permet de faire des maps
 library(mapsf)
 library(happign)
 library(terra)
+library(imager)
 ```
 
 ## Histogramme du niveau de vie moyen à St Joseph
@@ -55,5 +58,6 @@ Cette carte compare le niveau de vie des habitants au coût de la vie en Martini
 
 ## Schéma de géotraitement 
 ```{r}
-#schéma_indicateur.png
+image <- load.image("schéma_indicateur.png")
+plot(image, axes = FALSE)
 ```

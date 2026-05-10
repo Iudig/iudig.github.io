@@ -1,6 +1,8 @@
 ---
 title: "Première Partie"
-output: html_document
+output: 
+  html_document:
+    code_folding: hide
 ---
 
 ```{r setup, include=FALSE}
@@ -11,13 +13,14 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Librairies
 
-```{r Librairies}
+```{r Librairies, message=FALSE, warning=FALSE}
 #permet de gérer les gpkg
 library(sf)
 #permet de faire des maps
 library(mapsf)
 library(happign)
 library(terra)
+library(imager)
 ```
 
 ## Découpage du territoire
@@ -61,7 +64,8 @@ Cette carte montre la répartition des ménages pauvres à Saint-Joseph, à part
 
 ## Schéma de géotraitement
 ```{r}
-#schéma_ménages.png
+image <- load.image("schéma_ménages.png")
+plot(image, axes = FALSE)
 ```
 
 

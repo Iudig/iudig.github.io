@@ -30,6 +30,7 @@
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
@@ -216,6 +217,9 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
 
 
@@ -267,6 +271,14 @@ $(document).ready(function () {
 
 <div id="header">
 
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
 
 
 <h1 class="title toc-ignore">Partie 2</h1>
@@ -282,29 +294,12 @@ des inégalités</h1>
 <div id="librairies" class="section level2">
 <h2>Librairies</h2>
 <pre class="r"><code>#permet de gérer les gpkg
-library(sf)</code></pre>
-<pre><code>## Warning: le package &#39;sf&#39; a été compilé avec la version R 4.5.3</code></pre>
-<pre><code>## Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE</code></pre>
-<pre class="r"><code>#permet de faire des maps
-library(mapsf)</code></pre>
-<pre><code>## Warning: le package &#39;mapsf&#39; a été compilé avec la version R 4.5.3</code></pre>
-<pre class="r"><code>library(happign)</code></pre>
-<pre><code>## Warning: le package &#39;happign&#39; a été compilé avec la version R 4.5.3</code></pre>
-<pre><code>## Please make sure you have an internet connection.</code></pre>
-<pre><code>## Use happign::get_last_news() to display latest geoservice news.</code></pre>
-<pre><code>## 
-## Attachement du package : &#39;happign&#39;</code></pre>
-<pre><code>## L&#39;objet suivant est masqué depuis &#39;package:base&#39;:
-## 
-##     within</code></pre>
-<pre class="r"><code>library(terra)</code></pre>
-<pre><code>## Warning: le package &#39;terra&#39; a été compilé avec la version R 4.5.3</code></pre>
-<pre><code>## terra 1.9.11</code></pre>
-<pre><code>## 
-## Attachement du package : &#39;terra&#39;</code></pre>
-<pre><code>## L&#39;objet suivant est masqué depuis &#39;package:happign&#39;:
-## 
-##     relate</code></pre>
+library(sf)
+#permet de faire des maps
+library(mapsf)
+library(happign)
+library(terra)
+library(imager)</code></pre>
 </div>
 <div id="histogramme-du-niveau-de-vie-moyen-à-st-joseph"
 class="section level2">
@@ -382,7 +377,9 @@ compte les contraintes territoriales et le coût réel de la vie.</p>
 </div>
 <div id="schéma-de-géotraitement" class="section level2">
 <h2>Schéma de géotraitement</h2>
-<pre class="r"><code>#schéma_indicateur.png</code></pre>
+<pre class="r"><code>image &lt;- load.image(&quot;schéma_indicateur.png&quot;)
+plot(image, axes = FALSE)</code></pre>
+<p><img src="Script4_files/figure-html/unnamed-chunk-1-1.png" alt="" width="672" /></p>
 </div>
 </div>
 
@@ -419,6 +416,11 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
 
 
 <!-- dynamically load mathjax for compatibility with self-contained -->

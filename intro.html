@@ -31,6 +31,7 @@
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
@@ -217,6 +218,9 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
 
 
@@ -268,6 +272,14 @@ $(document).ready(function () {
 
 <div id="header">
 
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
 
 
 <h1 class="title toc-ignore">La Map’tinique</h1>
@@ -317,103 +329,113 @@ Saint-Joseph.</p>
 knitr::kable(données)</code></pre>
 <table>
 <colgroup>
-<col width="13%" />
-<col width="13%" />
-<col width="40%" />
-<col width="4%" />
+<col width="7%" />
+<col width="7%" />
+<col width="2%" />
 <col width="1%" />
-<col width="4%" />
-<col width="9%" />
-<col width="12%" />
+<col width="6%" />
+<col width="3%" />
+<col width="1%" />
+<col width="8%" />
+<col width="61%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th align="left">Nom</th>
 <th align="left">Échelle</th>
-<th align="left">Description</th>
 <th align="right">Projection</th>
 <th align="right">Date</th>
 <th align="left">Producteur</th>
-<th align="right">Taille…Nombre.d.objets</th>
-<th align="left">Mots.clés</th>
+<th align="right">Nombre.d.objets</th>
+<th align="left">Format</th>
+<th align="left">Poids</th>
+<th align="left">Lien</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">Carreaux Filosophi</td>
 <td align="left">Communale</td>
-<td align="left">Il s’agit des carreaux occupés de Saint-Joseph,
-accompagnés de différents indicateurs socio-économiques.</td>
 <td align="right">5490</td>
-<td align="right">2019</td>
+<td align="right">2018</td>
 <td align="left">INSEE</td>
 <td align="right">613</td>
-<td align="left">Careaux, Saint-Joseph</td>
+<td align="left">gpkg</td>
+<td align="left">21 836 Ko (font partie de base.gpkg)</td>
+<td align="left"><a
+href="https://www.insee.fr/fr/statistiques/7655475?sommaire=7655515"
+class="uri">https://www.insee.fr/fr/statistiques/7655475?sommaire=7655515</a></td>
 </tr>
 <tr class="even">
 <td align="left">Carreaux manquants</td>
 <td align="left">Communale</td>
-<td align="left">Il s’agit des carreaux non-occupés de
-Saint-Joseph.</td>
 <td align="right">5490</td>
-<td align="right">NA</td>
-<td align="left"></td>
+<td align="right">2018</td>
+<td align="left">Résultat d’une intersection</td>
 <td align="right">47</td>
-<td align="left">Carreaux manquants, Saint-Joseph</td>
+<td align="left">gpkg</td>
+<td align="left">21 836 Ko (font partie de base.gpkg)</td>
+<td align="left">Résultat d’une intersection entre les carreaux de la
+commune et la surface totale de la commune</td>
 </tr>
 <tr class="odd">
 <td align="left">Contours de Saint-Joseph</td>
 <td align="left">Communale</td>
-<td align="left">Il s’agit du contours de Saint-Joseph.</td>
 <td align="right">5490</td>
-<td align="right">NA</td>
+<td align="right">2025</td>
 <td align="left">OSM</td>
 <td align="right">1</td>
-<td align="left">Contours, Saint-Joseph</td>
+<td align="left">geojson</td>
+<td align="left">126 Ko</td>
+<td align="left">requête assistant overpass : admin_level=8 in
+97212</td>
 </tr>
 <tr class="even">
 <td align="left">Contours des communes de Martinique</td>
 <td align="left">Départementale</td>
-<td align="left">Il s’agit des contours de toutes les communes de
-Martinique.</td>
 <td align="right">5490</td>
-<td align="right">NA</td>
+<td align="right">2025</td>
 <td align="left">OSM</td>
 <td align="right">34</td>
-<td align="left">Contours, Martinique</td>
+<td align="left">geojson</td>
+<td align="left">7 077 Ko</td>
+<td align="left">requête assistant overpass : admin_level=8 in
+Martinique</td>
 </tr>
 <tr class="odd">
 <td align="left">Recettes des communes de Martinique</td>
 <td align="left">Départementale</td>
-<td align="left">Il s’agit des recettes des communes en montant par
-habitant.</td>
 <td align="right">5490</td>
 <td align="right">2024</td>
 <td align="left">OFGL</td>
 <td align="right">34</td>
-<td align="left">Recettes communales, Martinique</td>
+<td align="left">csv</td>
+<td align="left">12Ko</td>
+<td align="left"><a
+href="https://data.ofgl.fr/explore/dataset/ofgl-base-communes/information/?disjunctive.nomen&amp;disjunctive.agregat&amp;disjunctive.tranche_revenu_imposable_par_habitant&amp;disjunctive.tranche_population&amp;disjunctive.epci_name&amp;disjunctive.reg_name&amp;disjunctive.dep_name&amp;disjunctive.com_name&amp;sort=exer"
+class="uri">https://data.ofgl.fr/explore/dataset/ofgl-base-communes/information/?disjunctive.nomen&amp;disjunctive.agregat&amp;disjunctive.tranche_revenu_imposable_par_habitant&amp;disjunctive.tranche_population&amp;disjunctive.epci_name&amp;disjunctive.reg_name&amp;disjunctive.dep_name&amp;disjunctive.com_name&amp;sort=exer</a></td>
 </tr>
 <tr class="even">
 <td align="left">Routes de Saint-Joseph</td>
 <td align="left">Communale</td>
-<td align="left">Il s’agit des différents types de routes de
-Saint-Joseph. Certaines débordent un peu sur d’autres communes.</td>
 <td align="right">5490</td>
-<td align="right">NA</td>
+<td align="right">2025</td>
 <td align="left">OSM</td>
 <td align="right">1025</td>
-<td align="left">Routes, Saint-Joseph</td>
+<td align="left">geojson</td>
+<td align="left">1 250 Ko</td>
+<td align="left">requête assistant overpass : highway=* in 97212</td>
 </tr>
 <tr class="odd">
 <td align="left">Image Satellitaire de Saint-Joseph</td>
 <td align="left">Intermédiaire (plusieurs communes)</td>
-<td align="left">Il s’agit d’une photographie satellite de
-Saint-Joseph.</td>
 <td align="right">5490</td>
 <td align="right">NA</td>
 <td align="left">Librairie R</td>
 <td align="right">1</td>
-<td align="left">Image satellitaire</td>
+<td align="left">tif</td>
+<td align="left">1 381 Ko</td>
+<td align="left">Intégrée à R</td>
 </tr>
 </tbody>
 </table>
@@ -452,6 +474,11 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
 
 
 <!-- dynamically load mathjax for compatibility with self-contained -->

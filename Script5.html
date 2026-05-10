@@ -30,6 +30,7 @@
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
@@ -216,6 +217,9 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
 
 
@@ -267,6 +271,14 @@ $(document).ready(function () {
 
 <div id="header">
 
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
 
 
 <h1 class="title toc-ignore">Partie 3</h1>
@@ -282,29 +294,12 @@ territoire</h1>
 <div id="librairies" class="section level2">
 <h2>Librairies</h2>
 <pre class="r"><code>#permet de gérer les gpkg
-library(sf)</code></pre>
-<pre><code>## Warning: le package &#39;sf&#39; a été compilé avec la version R 4.5.3</code></pre>
-<pre><code>## Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE</code></pre>
-<pre class="r"><code>#permet de faire des maps
-library(mapsf)</code></pre>
-<pre><code>## Warning: le package &#39;mapsf&#39; a été compilé avec la version R 4.5.3</code></pre>
-<pre class="r"><code>library(happign)</code></pre>
-<pre><code>## Warning: le package &#39;happign&#39; a été compilé avec la version R 4.5.3</code></pre>
-<pre><code>## Please make sure you have an internet connection.</code></pre>
-<pre><code>## Use happign::get_last_news() to display latest geoservice news.</code></pre>
-<pre><code>## 
-## Attachement du package : &#39;happign&#39;</code></pre>
-<pre><code>## L&#39;objet suivant est masqué depuis &#39;package:base&#39;:
-## 
-##     within</code></pre>
-<pre class="r"><code>library(terra)</code></pre>
-<pre><code>## Warning: le package &#39;terra&#39; a été compilé avec la version R 4.5.3</code></pre>
-<pre><code>## terra 1.9.11</code></pre>
-<pre><code>## 
-## Attachement du package : &#39;terra&#39;</code></pre>
-<pre><code>## L&#39;objet suivant est masqué depuis &#39;package:happign&#39;:
-## 
-##     relate</code></pre>
+library(sf)
+#permet de faire des maps
+library(mapsf)
+library(happign)
+library(terra)
+library(imager)</code></pre>
 </div>
 <div id="image-satellitaire-de-saint-joseph" class="section level2">
 <h2>Image satellitaire de Saint-Joseph</h2>
@@ -321,7 +316,6 @@ st_write(tot, &quot;projet.gpkg&quot;, &quot;commune&quot;, delete_layer = T)</c
                filename = &quot;SaintJoseph.tif&quot;,
                overwrite = FALSE,
                verbose = TRUE)</code></pre>
-<pre><code>## Using cached file: C:\Users\I J\Documents\Iudig\Licence\L3S6\SIG\iudig.github.io\SaintJoseph.tif</code></pre>
 <pre class="r"><code>r &lt;- rast(&quot;SaintJoseph.tif&quot;)
 plot(r)</code></pre>
 <p><img src="Script5_files/figure-html/unnamed-chunk-3-1.png" alt="" width="672" /></p>
@@ -354,7 +348,9 @@ renforcer certaines situations de pauvreté</p>
 </div>
 <div id="schéma-de-géotraitement" class="section level2">
 <h2>Schéma de géotraitement</h2>
-<pre class="r"><code>#schéma_satellite.png</code></pre>
+<pre class="r"><code>image &lt;- load.image(&quot;schéma_satellite.png&quot;)
+plot(image, axes = FALSE)</code></pre>
+<p><img src="Script5_files/figure-html/unnamed-chunk-6-1.png" alt="" width="672" /></p>
 </div>
 <div id="image-satellitaire-des-carreaux-occupés-de-saint-joseph"
 class="section level2">
@@ -421,160 +417,35 @@ pauvreté.</p>
 class="section level2">
 <h2>Les recettes des communes de Martinique</h2>
 <pre class="r"><code>data &lt;- read.csv2(&quot;ofgl-base-communes.csv&quot;, dec = &quot;.&quot;)
-data &lt;- data[,c(16,28)]
-names(data) &lt;- c(&quot;Nom&quot;, &quot;Montant&quot;)
-data &lt;- order(data$Montant, decreasing = FALSE)
-knitr::kable(data)</code></pre>
-<table>
-<thead>
-<tr class="header">
-<th align="right">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="right">20</td>
-</tr>
-<tr class="even">
-<td align="right">23</td>
-</tr>
-<tr class="odd">
-<td align="right">24</td>
-</tr>
-<tr class="even">
-<td align="right">27</td>
-</tr>
-<tr class="odd">
-<td align="right">18</td>
-</tr>
-<tr class="even">
-<td align="right">7</td>
-</tr>
-<tr class="odd">
-<td align="right">32</td>
-</tr>
-<tr class="even">
-<td align="right">21</td>
-</tr>
-<tr class="odd">
-<td align="right">22</td>
-</tr>
-<tr class="even">
-<td align="right">16</td>
-</tr>
-<tr class="odd">
-<td align="right">12</td>
-</tr>
-<tr class="even">
-<td align="right">2</td>
-</tr>
-<tr class="odd">
-<td align="right">29</td>
-</tr>
-<tr class="even">
-<td align="right">10</td>
-</tr>
-<tr class="odd">
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="right">6</td>
-</tr>
-<tr class="odd">
-<td align="right">15</td>
-</tr>
-<tr class="even">
-<td align="right">4</td>
-</tr>
-<tr class="odd">
-<td align="right">28</td>
-</tr>
-<tr class="even">
-<td align="right">5</td>
-</tr>
-<tr class="odd">
-<td align="right">33</td>
-</tr>
-<tr class="even">
-<td align="right">14</td>
-</tr>
-<tr class="odd">
-<td align="right">8</td>
-</tr>
-<tr class="even">
-<td align="right">30</td>
-</tr>
-<tr class="odd">
-<td align="right">13</td>
-</tr>
-<tr class="even">
-<td align="right">19</td>
-</tr>
-<tr class="odd">
-<td align="right">3</td>
-</tr>
-<tr class="even">
-<td align="right">9</td>
-</tr>
-<tr class="odd">
-<td align="right">25</td>
-</tr>
-<tr class="even">
-<td align="right">31</td>
-</tr>
-<tr class="odd">
-<td align="right">11</td>
-</tr>
-<tr class="even">
-<td align="right">26</td>
-</tr>
-<tr class="odd">
-<td align="right">17</td>
-</tr>
-<tr class="even">
-<td align="right">34</td>
-</tr>
-</tbody>
-</table>
-<p>Ce tableau classe les communes de Martinique selon le montant des
-recettes par habitant, de la plus faible à la plus élevée. Chaque
-commune est représentée par un numéro correspondant à son code INSEE
-simplifié.Pour Saint-Joseph, le code INSEE est 97224 : le numéro 24
-apparaît donc dans le tableau. Comme ce numéro se situe parmi les
-premières positions du classement, cela signifie que Saint-Joseph fait
-partie des communes ayant les recettes par habitant les plus faibles de
-Martinique.Ce résultat peut traduire des ressources financières plus
-limitées pour la commune, ce qui peut avoir un impact sur les
-équipements, les services ou les aménagements disponibles pour les
-habitants. Cela permet donc de compléter l’analyse des inégalités
-territoriales et sociales observées dans les autres cartes.</p>
-</div>
-<div id="ce-que-nous-aurions-aimé-faire" class="section level2">
-<h2>Ce que nous aurions aimé faire</h2>
-<p>L’idée initiale était de faire une jointure avec les contours des
-communes récupérés sur overpass-turbo. Nous aurions eu ensuite une carte
-à l’échelle du département avec toutes les communes colorées en fonction
-du montant de leurs recettes. Nous aurions ainsi pu avoir une
-comparaison à l’échelle du territoire. Malheureusement, les contours des
-communes de Martinique ne sont pas construits de la même manière dans
-overpass-turbo. Par conséquent, la carte ne peut pas être formée. Nous
-avons tout de même souhaité conserver le code, comme preuve de notre
-travail.</p>
-<pre class="r"><code>#st_layers(&quot;communes_martinique.geojson&quot;)
-#Mart &lt;- st_read(&quot;communes_martinique.geojson&quot;, quiet=T)
-#Mart &lt;- Mart[,22]
-#inter &lt;- merge(data, Mart, by.x = &quot;Nom&quot;, by.y = &quot;name&quot;)</code></pre>
-<pre class="r"><code>#quantile &lt;- quantile(inter$Montant, na.rm = T)
-#inter$Montant_rapport &lt;- &quot;moyen&quot;
-#inter$Montant_rapport [inter$Montant &lt; quantile [2]] &lt;- &quot;Montant des recettes moins élevé&quot;
-#inter$Montant_rapport [inter$Montant &gt; quantile [3]] &lt;- &quot;Montant des recettes plus élevé&quot; 
-#table(inter$Montant_rapport)</code></pre>
-<pre class="r"><code>#rapport3 &lt;- aggregate(inter [, c(&quot;Montant_rapport&quot;)], by = list(inter$Montant_rapport), length)
-#mf_map(rapport3, type = &quot;typo&quot;, var = &quot;Group.1&quot;, border= NA, leg_title = &quot;&quot;)</code></pre>
+data &lt;- data[,c(15,28)]
+names(data) &lt;- c(&quot;Code&quot;, &quot;Montant&quot;)</code></pre>
+<pre class="r"><code>st_layers(&quot;cadastre-972-communes.geojson&quot;)</code></pre>
+<pre><code>## Driver: GeoJSON 
+## Available layers:
+##              layer_name geometry_type features fields crs_name
+## 1 cadastre-972-communes Multi Polygon       34      4   WGS 84</code></pre>
+<pre class="r"><code>Mart &lt;- st_read(&quot;cadastre-972-communes.geojson&quot;, quiet=T)
+Mart &lt;- Mart[,1]
+Mart$id &lt;- as.numeric(Mart$id)
+inter &lt;- merge(data, Mart, by.x = &quot;Code&quot;, by.y = &quot;id&quot;)
+st_write(inter [,c(1:3)],&quot;jointure.gpkg&quot;, &quot;inter&quot;, delete_layer = T, quiet = T)
+jointure &lt;- st_read(&quot;jointure.gpkg&quot;)</code></pre>
+<pre><code>## Reading layer `inter&#39; from data source 
+##   `C:\Users\I J\Documents\Iudig\Licence\L3S6\SIG\iudig.github.io\jointure.gpkg&#39; 
+##   using driver `GPKG&#39;
+## Simple feature collection with 34 features and 2 fields
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -61.22909 ymin: 14.3887 xmax: -60.8096 ymax: 14.87873
+## Geodetic CRS:  WGS 84</code></pre>
+<pre class="r"><code>mf_map(jointure, type = &quot;choro&quot;, var = &quot;Montant&quot;, border = NA)</code></pre>
+<p><img src="Script5_files/figure-html/unnamed-chunk-11-1.png" alt="" width="672" /></p>
 </div>
 <div id="schéma-de-géotraitement-1" class="section level2">
 <h2>Schéma de géotraitement</h2>
-<pre class="r"><code>#schéma_recettes.png</code></pre>
+<pre class="r"><code>image &lt;- load.image(&quot;schéma_recettes.png&quot;)
+plot(image, axes = FALSE)</code></pre>
+<p><img src="Script5_files/figure-html/unnamed-chunk-12-1.png" alt="" width="672" /></p>
 </div>
 </div>
 
@@ -611,6 +482,11 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
 
 
 <!-- dynamically load mathjax for compatibility with self-contained -->

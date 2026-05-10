@@ -1,28 +1,31 @@
 ---
 title: "Partie 3"
-output: html_document
+output: 
+  html_document:
+    code_folding: hide
 ---
 
 # Partie 3 : Topographie et accessibilité, des contraintes pour le territoire
 
 ## Librairies
 
-```{r Librairies}
+```{r Librairies, message=FALSE, warning=FALSE}
 #permet de gérer les gpkg
 library(sf)
 #permet de faire des maps
 library(mapsf)
 library(happign)
 library(terra)
+library(imager)
 ```
 
 ## Image satellitaire de Saint-Joseph
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 tot <- get_apicarto_cadastre("97224", type = "commune")
 st_write(tot, "projet.gpkg", "commune", delete_layer = T)
 ```
-```{r}
+```{r, message=FALSE, warning=FALSE}
 r <- get_wms_raster(tot,
                layer = "ORTHOIMAGERY.ORTHOPHOTOS",
                res = 10,
@@ -56,7 +59,8 @@ Ces contraintes peuvent également avoir un impact sur les inégalités sociales
 ## Schéma de géotraitement
 
 ```{r}
-#schéma_satellite.png
+image <- load.image("schéma_satellite.png")
+plot(image, axes = FALSE)
 ```
 
 ## Image satellitaire des carreaux occupés de Saint-Joseph
@@ -91,41 +95,25 @@ Ces différences d’accessibilité peuvent avoir un impact sur les inégalités
 
 ```{r}
 data <- read.csv2("ofgl-base-communes.csv", dec = ".")
-data <- data[,c(16,28)]
-names(data) <- c("Nom", "Montant")
-data <- order(data$Montant, decreasing = FALSE)
-knitr::kable(data)
+data <- data[,c(15,28)]
+names(data) <- c("Code", "Montant")
 ```
 
-Ce tableau classe les communes de Martinique selon le montant des recettes par habitant, de la plus faible à la plus élevée. Chaque commune est représentée par un numéro correspondant à son code INSEE simplifié.Pour Saint-Joseph, le code INSEE est 97224 : le numéro 24 apparaît donc dans le tableau. Comme ce numéro se situe parmi les premières positions du classement, cela signifie que Saint-Joseph fait partie des communes ayant les recettes par habitant les plus faibles de Martinique.Ce résultat peut traduire des ressources financières plus limitées pour la commune, ce qui peut avoir un impact sur les équipements, les services ou les aménagements disponibles pour les habitants. Cela permet donc de compléter l’analyse des inégalités territoriales et sociales observées dans les autres cartes.
-
-
-## Ce que nous aurions aimé faire
-
-L'idée initiale était de faire une jointure avec les contours des communes récupérés sur overpass-turbo. Nous aurions eu ensuite une carte à l'échelle du département avec toutes les communes colorées en fonction du montant de leurs recettes. Nous aurions ainsi pu avoir une comparaison à l'échelle du territoire. Malheureusement, les contours des communes de Martinique ne sont pas construits de la même manière dans overpass-turbo. Par conséquent, la carte ne peut pas être formée. Nous avons tout de même souhaité conserver le code, comme preuve de notre travail.
-
-```{r}
-#st_layers("communes_martinique.geojson")
-#Mart <- st_read("communes_martinique.geojson", quiet=T)
-#Mart <- Mart[,22]
-#inter <- merge(data, Mart, by.x = "Nom", by.y = "name")
+```{r, message=FALSE, warning=FALSE}
+st_layers("cadastre-972-communes.geojson")
+Mart <- st_read("cadastre-972-communes.geojson", quiet=T)
+Mart <- Mart[,1]
+Mart$id <- as.numeric(Mart$id)
+inter <- merge(data, Mart, by.x = "Code", by.y = "id")
+st_write(inter [,c(1:3)],"jointure.gpkg", "inter", delete_layer = T, quiet = T)
+jointure <- st_read("jointure.gpkg")
+mf_map(jointure, type = "choro", var = "Montant", border = NA)
 ```
 
-```{r}
-#quantile <- quantile(inter$Montant, na.rm = T)
-#inter$Montant_rapport <- "moyen"
-#inter$Montant_rapport [inter$Montant < quantile [2]] <- "Montant des recettes moins élevé"
-#inter$Montant_rapport [inter$Montant > quantile [3]] <- "Montant des recettes plus élevé" 
-#table(inter$Montant_rapport)
-```
-
-```{r Carte}
-#rapport3 <- aggregate(inter [, c("Montant_rapport")], by = list(inter$Montant_rapport), length)
-#mf_map(rapport3, type = "typo", var = "Group.1", border= NA, leg_title = "")
-```
 
 ## Schéma de géotraitement
 
 ```{r}
-#schéma_recettes.png
+image <- load.image("schéma_recettes.png")
+plot(image, axes = FALSE)
 ```

@@ -1,7 +1,9 @@
 ---
 title: "La Map'tinique"
 author: "Mathilde et JOLIVET Iudig"
-output: html_document
+output: 
+  html_document:
+    code_folding: hide
 ---
 
 ## Introduction 

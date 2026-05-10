@@ -1,8 +1,8 @@
-Nom;Échelle;Description;Projection;Date;Producteur;Taille / Nombre d'objets;Mots clés
-Carreaux Filosophi;Communale;Il s’agit des carreaux occupés de Saint-Joseph, accompagnés de différents indicateurs socio-économiques.;5490;2019;INSEE;613;Careaux, Saint-Joseph
-Carreaux manquants;Communale;Il s’agit des carreaux non-occupés de Saint-Joseph.;5490;;;47;Carreaux manquants, Saint-Joseph
-Contours de Saint-Joseph;Communale;Il s’agit du contours de Saint-Joseph.;5490;;OSM;1;Contours, Saint-Joseph
-Contours des communes de Martinique;Départementale;Il s’agit des contours de toutes les communes de Martinique.;5490;;OSM;34;Contours, Martinique
-Recettes des communes de Martinique;Départementale;Il s’agit des recettes des communes en montant par habitant.;5490;2024;OFGL;34;Recettes communales, Martinique
-Routes de Saint-Joseph;Communale;Il s’agit des différents types de routes de Saint-Joseph. Certaines débordent un peu sur d’autres communes.;5490;;OSM;1025;Routes, Saint-Joseph
-Image Satellitaire de Saint-Joseph;Intermédiaire (plusieurs communes);Il s’agit d’une photographie satellite de Saint-Joseph.;5490;;Librairie R;1;Image satellitaire
+Nom;Échelle;Projection;Date;Producteur;Nombre d'objets;Format;Poids;Lien
+Carreaux Filosophi;Communale;5490;2018;INSEE;613;gpkg;21 836 Ko (font partie de base.gpkg);https://www.insee.fr/fr/statistiques/7655475?sommaire=7655515
+Carreaux manquants;Communale;5490;2018;Résultat d’une intersection;47;gpkg;21 836 Ko (font partie de base.gpkg);Résultat d’une intersection entre les carreaux de la commune et la surface totale de la commune
+Contours de Saint-Joseph;Communale;5490;2025;OSM;1;geojson;126 Ko;requête assistant overpass : admin_level=8 in 97212
+Contours des communes de Martinique;Départementale;5490;2025;OSM;34;geojson;7 077 Ko;requête assistant overpass : admin_level=8 in Martinique
+Recettes des communes de Martinique;Départementale;5490;2024;OFGL;34;csv;12Ko;https://data.ofgl.fr/explore/dataset/ofgl-base-communes/information/?disjunctive.nomen&disjunctive.agregat&disjunctive.tranche_revenu_imposable_par_habitant&disjunctive.tranche_population&disjunctive.epci_name&disjunctive.reg_name&disjunctive.dep_name&disjunctive.com_name&sort=exer
+Routes de Saint-Joseph;Communale;5490;2025;OSM;1025;geojson;1 250 Ko;requête assistant overpass : highway=* in 97212
+Image Satellitaire de Saint-Joseph;Intermédiaire (plusieurs communes);5490;;Librairie R;1;tif;1 381 Ko;Intégrée à R
