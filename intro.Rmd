@@ -1,6 +1,6 @@
 ---
 title: "La Map'tinique"
-author: "Mathilde et JOLIVET Iudig"
+author: "Mathilde et Iudig"
 output: 
   html_document:
     code_folding: hide
